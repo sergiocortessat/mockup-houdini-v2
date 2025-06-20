@@ -44,18 +44,24 @@ export async function middleware(request: NextRequest) {
             const cookieStrings = setCookieHeader.split(/,(?=[a-zA-Z0-9_-]+=)/);
 
             for (const cookieString of cookieStrings) {
-              // Extract cookie name
-              const cookieName = cookieString.split('=')[0]?.trim();
+              const parts = cookieString.split(';');
+              const [name, ...valueParts] = parts[0].split('=');
+              const cookieName = name.trim();
+              const cookieValue = valueParts.join('=').trim();
 
-              if (cookieName) {
-                response.cookies.set(
-                  cookieName,
-                  cookieString.split('=')[1]?.trim(),
-                  {
-                    path: '/',
-                    maxAge: 1 * 60 * 60, // 24 hours
-                  }
-                );
+              if (cookieName === 'houdini') {
+                response.cookies.set(cookieName, cookieValue, {
+                  path: '/',
+                  maxAge: 60 * 60 * 24, // 24 hours
+                  sameSite: 'none',
+                  secure: true,
+                  domain: '.houdiniswap.com',
+                });
+              } else if (cookieName) {
+                response.cookies.set(cookieName, cookieValue, {
+                  path: '/',
+                  maxAge: 60 * 60, // 1 hour
+                });
               }
             }
 
