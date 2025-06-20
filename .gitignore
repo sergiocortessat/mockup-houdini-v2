@@ -1,0 +1,15 @@
+/node_modules
+/.next/
+/out/
+/build
+.DS_Store
+.env*.local
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+.vscode
+.env
+.env.sentry-build-plugin
+.cursorrules
+.husky/_
+/.cursor/

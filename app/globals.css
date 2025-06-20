@@ -1,0 +1,190 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@plugin "tailwindcss-animate";
+
+@config '../tailwind.config.ts';
+
+:root {
+  --background: hsl(224 71.4% 4.1%);
+  --foreground: hsl(210 20% 98%);
+  --card: hsl(221 39.3% 11%);
+  --card-foreground: hsl(210 20% 98%);
+  --popover: hsl(221 39.3% 11%);
+  --popover-foreground: hsl(210 20% 98%);
+  --primary: hsl(271 91% 65.1%);
+  --primary-foreground: hsl(210 20% 98%);
+  --secondary: hsl(215 27.9% 16.9%);
+  --secondary-foreground: hsl(210 20% 98%);
+  --muted: hsl(215 27.9% 16.9%);
+  --muted-foreground: hsl(217.9 10.6% 64.9%);
+  --accent: hsl(215 27.9% 16.9%);
+  --accent-foreground: hsl(210 20% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(210 20% 98%);
+  --border: hsl(215 27.9% 16.9%);
+  --input: hsl(221 39.3% 11%);
+  --ring: hsl(215 27.9% 16.9%);
+  --radius: 0.5rem;
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-600: #4b5563;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --neutral-900: #111827;
+  --neutral-950: #030712;
+  --neutral: hsl(220 8.9% 46.1%);
+  --neutral-foreground: hsl(220 10% 98%);
+  --alert-success: hsl(142 85% 50%);
+  --alert-success-foreground: hsl(142 85% 98%);
+  --alert-error: hsl(0 85% 50%);
+  --alert-error-foreground: hsl(0 85% 98%);
+  --alert-warning: hsl(30 85% 50%);
+  --alert-warning-foreground: hsl(30 85% 98%);
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.5;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+  --spacing-header: 72px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-neutral: var(--neutral);
+  --color-neutral-foreground: var(--neutral-foreground);
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-950: var(--neutral-950);
+  --color-alert-error: var(--alert-error);
+  --color-alert-error-foreground: var(--alert-error-foreground);
+  --color-alert-success: var(--alert-success);
+  --color-alert-success-foreground: var(--alert-success-foreground);
+  --color-alert-warning: var(--alert-warning);
+  --color-alert-warning-foreground: var(--alert-warning-foreground);
+  --radius: var(--radius);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-weight-regular: var(--font-weight-regular);
+  --font-weight-medium: var(--font-weight-medium);
+  --font-weight-semibold: var(--font-weight-semibold);
+  --line-height-tight: var(--line-height-tight);
+  --line-height-normal: var(--line-height-normal);
+  --line-height-relaxed: var(--line-height-relaxed);
+  --letter-spacing-tight: var(--letter-spacing-tight);
+  --letter-spacing-normal: var(--letter-spacing-normal);
+  --letter-spacing-wide: var(--letter-spacing-wide);
+  --spacing-header: var(--spacing-header);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image: linear-gradient(
+      to bottom,
+      #030712 0%,
+      rgba(168, 85, 247, 0.12) 100%
+    );
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    scrollbar-color: var(--primary) transparent;
+    scrollbar-width: thin;
+  }
+}
+
+@layer utilities {
+  body {
+    font-family: var(--font-inter);
+  }
+}
+
+@utility container {
+  @apply mx-auto px-4 md:px-6 lg:px-8;
+}
+
+/* Token input styles */
+.token-input-with-cutout {
+  position: relative;
+  padding: 24px;
+}
+
+.token-input-with-cutout::before {
+  content: '';
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 68px;
+  height: 72px;
+  background-color: var(--background);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+body.no-background {
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  color: unset !important;
+}
+
+/* Standard properties for Firefox, Chrome, Edge, Opera */
+.scrollable {
+  scrollbar-color: var(--primary) transparent;
+  scrollbar-width: thin;
+}
+
+/* WebKit/Blink browsers (Chrome, Safari, Edge) */
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 8px;
+}
+.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}

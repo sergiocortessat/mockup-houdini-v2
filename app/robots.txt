@@ -1,0 +1,5 @@
+
+# TODO:Halo Remove this comment before release
+
+User-agent: *
+allow: / 
