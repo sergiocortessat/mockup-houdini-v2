@@ -3,7 +3,6 @@ import { getTranslations } from 'next-intl/server';
 
 import { BASE_URLS } from '@/constants/urls';
 import Widget from '@/features/widget/components';
-import { BodyClassController } from '@/features/widget/components/body-class-controller';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('metadata.widget');
@@ -29,11 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function WidgetPage() {
   return (
-    <>
-      <BodyClassController className="no-background" />
-      <main className="flex min-h-screen items-center justify-center gap-5 pt-5">
-        <Widget />
-      </main>
-    </>
+    <main className="flex min-h-screen items-center justify-center gap-5 pt-5">
+      <Widget />
+    </main>
   );
 }

@@ -8,6 +8,24 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  async headers() {
+    return [
+      {
+        // Apply these headers to the widget route
+        source: '/widget/:path*',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'ALLOWALL',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' *",
+          },
+        ],
+      },
+    ];
+  },
   webpack: (config: any) => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding');
     return config;
