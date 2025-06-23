@@ -1,9 +1,12 @@
+import '@mysten/dapp-kit/dist/index.css';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { headers } from 'next/headers';
+import NextTopLoader from 'nextjs-toploader';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
+import { inter } from '@/app/fonts';
 import '@/app/globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -35,18 +38,9 @@ export default async function WidgetLayout({
 
   return (
     <html lang={locale}>
-      <head>
-        <style>{`
-          body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            margin: 0;
-            padding: 0;
-          }
-        `}</style>
-      </head>
-      <body>
+      <body className={`${inter.variable} antialiased`}>
+        <NextTopLoader showSpinner={false} color="var(--primary)" />
+
         <NextIntlClientProvider messages={messages}>
           <ApolloProviderWrapper>
             <AllWalletProvider cookies={cookies}>
