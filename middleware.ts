@@ -7,6 +7,24 @@ export const REFRESH_COOKIE_INTERVAL = 1000 * 60 * 30; // 30 minutes
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
+  // Handle widget route specifically for iframe compatibility
+  if (request.nextUrl.pathname.startsWith('/widget')) {
+    // Add CORS headers for iframe compatibility
+    response.headers.set('X-Frame-Options', 'ALLOWALL');
+    response.headers.set('Access-Control-Allow-Origin', '*');
+    response.headers.set(
+      'Access-Control-Allow-Methods',
+      'GET, POST, PUT, DELETE, OPTIONS'
+    );
+    response.headers.set(
+      'Access-Control-Allow-Headers',
+      'Content-Type, Authorization, user-Timezone, partner-id'
+    );
+    response.headers.set('Access-Control-Allow-Credentials', 'false');
+
+    return response;
+  }
+
   try {
     // Check if we need to refresh the auth cookie
     const authCookie = request.cookies.get('houdini');
@@ -44,24 +62,18 @@ export async function middleware(request: NextRequest) {
             const cookieStrings = setCookieHeader.split(/,(?=[a-zA-Z0-9_-]+=)/);
 
             for (const cookieString of cookieStrings) {
-              const parts = cookieString.split(';');
-              const [name, ...valueParts] = parts[0].split('=');
-              const cookieName = name.trim();
-              const cookieValue = valueParts.join('=').trim();
+              // Extract cookie name
+              const cookieName = cookieString.split('=')[0]?.trim();
 
-              if (cookieName === 'houdini') {
-                response.cookies.set(cookieName, cookieValue, {
-                  path: '/',
-                  maxAge: 60 * 60 * 24, // 24 hours
-                  sameSite: 'none',
-                  secure: true,
-                  domain: '.houdiniswap.com',
-                });
-              } else if (cookieName) {
-                response.cookies.set(cookieName, cookieValue, {
-                  path: '/',
-                  maxAge: 60 * 60, // 1 hour
-                });
+              if (cookieName) {
+                response.cookies.set(
+                  cookieName,
+                  cookieString.split('=')[1]?.trim(),
+                  {
+                    path: '/',
+                    maxAge: 1 * 60 * 60, // 24 hours
+                  }
+                );
               }
             }
 
