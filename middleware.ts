@@ -7,24 +7,6 @@ export const REFRESH_COOKIE_INTERVAL = 1000 * 60 * 30; // 30 minutes
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
-  // Handle widget route specifically for iframe compatibility
-  if (request.nextUrl.pathname.startsWith('/widget')) {
-    // Add CORS headers for iframe compatibility
-    response.headers.set('X-Frame-Options', 'ALLOWALL');
-    response.headers.set('Access-Control-Allow-Origin', '*');
-    response.headers.set(
-      'Access-Control-Allow-Methods',
-      'GET, POST, PUT, DELETE, OPTIONS'
-    );
-    response.headers.set(
-      'Access-Control-Allow-Headers',
-      'Content-Type, Authorization, user-Timezone, partner-id'
-    );
-    response.headers.set('Access-Control-Allow-Credentials', 'false');
-
-    return response;
-  }
-
   try {
     // Check if we need to refresh the auth cookie
     const authCookie = request.cookies.get('houdini');
@@ -72,6 +54,8 @@ export async function middleware(request: NextRequest) {
                   {
                     path: '/',
                     maxAge: 1 * 60 * 60, // 24 hours
+                    sameSite: 'none',
+                    secure: true,
                   }
                 );
               }
@@ -81,6 +65,8 @@ export async function middleware(request: NextRequest) {
             response.cookies.set('last_auth_refresh', now.toString(), {
               path: '/',
               maxAge: 60 * 60, // 1 hour
+              sameSite: 'none',
+              secure: true,
             });
 
             console.log('Auth cookie refreshed via middleware');
@@ -99,5 +85,7 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/((?!_next|api|assets|favicon.ico|robots.txt|sitemap.xml).*)'],
+  matcher: [
+    '/((?!_next|api|assets|favicon.ico|robots.txt|sitemap.xml|widget).*)',
+  ],
 };
